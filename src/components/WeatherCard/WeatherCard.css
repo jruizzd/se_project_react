@@ -21,9 +21,3 @@
   object-position: right top;
   width: 100%;
 }
-
-@media screen and (max-width: 768px) {
-  .weather-card {
-    margin-bottom: 16px;
-  }
-}
