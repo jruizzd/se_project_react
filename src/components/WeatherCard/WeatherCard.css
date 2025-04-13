@@ -4,6 +4,7 @@
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
+  margin: 28px 0;
 }
 
 .weather-card__temp {
@@ -19,4 +20,10 @@
   object-fit: cover;
   object-position: right top;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .weather-card {
+    margin-bottom: 16px;
+  }
 }

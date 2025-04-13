@@ -4,7 +4,7 @@ import { defaultClothingItems } from "../../utils/constants";
 
 function Main({ weatherData }) {
   return (
-    <Main>
+    <main>
       <WeatherCard />
       <section className="cards">
         <p className="cards__text">
@@ -20,7 +20,7 @@ function Main({ weatherData }) {
             })}
         </ul>
       </section>
-    </Main>
+    </main>
   );
 }
 
