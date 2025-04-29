@@ -15,6 +15,10 @@
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
+  width: 73px;
+  height: 24px;
+  text-align: center;
+  justify-content: center;
 }
 
 .card__image {
