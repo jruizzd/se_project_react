@@ -2,8 +2,8 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="footer">
-      <span>Developed by Name Surname</span>
-      <span>2022</span>
+      <p>Developed by Name Surname</p>
+      <p>{new Date().getFullYear()}</p>
     </footer>
   );
 }
