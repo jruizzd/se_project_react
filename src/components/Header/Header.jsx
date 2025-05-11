@@ -4,6 +4,7 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.png";
 import { useState } from "react";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ handleAddClick, weatherData }) {
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
@@ -31,9 +32,11 @@ function Header({ handleAddClick, weatherData }) {
           isMobileMenuOpened ? "header__nav_opened" : ""
         }`}
       >
+        <ToggleSwitch />
         <button className="header__menu-button" onClick={handleMobileMenuClick}>
           <img src={closeIcon} alt={"Close menu"} />
         </button>
+
         <button
           onClick={handleAddClick}
           type="button"
