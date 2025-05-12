@@ -5,6 +5,7 @@
   border-radius: 20px;
   overflow: hidden;
   position: relative;
+  margin-left: auto;
 }
 
 .toggle-switch__checkbox {
@@ -37,4 +38,8 @@
 
 .toggle-switch__checkbox:checked ~ .toggle-switch__circle {
   left: 28px;
+}
+
+.toggle-switch__text_color_white {
+  color: white;
 }

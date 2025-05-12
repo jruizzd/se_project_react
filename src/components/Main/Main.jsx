@@ -3,7 +3,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
 
-function Main({ weatherData, handleCardClick }) {
+function Main({ weatherData, handleCardClick, currentTemperatureUnit }) {
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
@@ -14,7 +14,6 @@ function Main({ weatherData, handleCardClick }) {
         <ul className="cards__list">
           {defaultClothingItems
             .filter((item) => {
-              console.log("Weather type:", weatherData.type);
               return item.weather === weatherData.type;
             })
             .map((item) => {
