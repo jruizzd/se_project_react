@@ -51,6 +51,11 @@
   right: 16px;
 }
 
+.header__link {
+  text-decoration: none;
+  color: #000;
+}
+
 @media screen and (max-width: 550px) {
   .header {
     padding: 16px 20px;
