@@ -11,6 +11,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
+import { getItems, deleteItem } from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -50,11 +51,30 @@ function App() {
     closeActiveModal();
   };
 
+  // Add the handleDeleteItem function here
+  const handleDeleteItem = async (id) => {
+    try {
+      await deleteItem(id);
+      setClothingItems(clothingItems.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+        setClothingItems(data);
       })
       .catch(console.error);
   }, []);
@@ -98,6 +118,7 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
+          onDelete={handleDeleteItem}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
