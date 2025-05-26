@@ -25,6 +25,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -51,11 +52,21 @@ function App() {
     closeActiveModal();
   };
 
+  // Add it here, before handleDeleteItem
+  const openConfirmationModal = (card) => {
+    setItemToDelete(card);
+    setActiveModal("confirm-delete");
+  };
+
   // Add the handleDeleteItem function here
-  const handleDeleteItem = async (id) => {
+  const handleDeleteItem = async () => {
     try {
-      await deleteItem(id);
-      setClothingItems(clothingItems.filter((item) => item.id !== id));
+      await deleteItem(itemToDelete._id);
+      setClothingItems(
+        clothingItems.filter((item) => item._id !== itemToDelete._id)
+      );
+      setItemToDelete(null);
+      closeActiveModal();
     } catch (error) {
       console.error("Error deleting item:", error);
     }
@@ -118,8 +129,19 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
-          onDelete={handleDeleteItem}
+          onDelete={openConfirmationModal}
         />
+        {activeModal === "confirm-delete" && (
+          <div className="modal modal_opened">
+            <div className="modal__content">
+              <p>Are you sure you want to delete this item?</p>
+              <div className="modal__buttons">
+                <button onClick={handleDeleteItem}>Yes</button>
+                <button onClick={closeActiveModal}>No</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

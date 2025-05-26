@@ -3,8 +3,7 @@ import "./ItemModal.css";
 
 function ItemModal({ activeModal, onClose, card, onDelete }) {
   const handleDeleteClick = () => {
-    onDelete(card._id); // Call onDelete with the card's id
-    onClose(); // Close the modal after deletion
+    onDelete(card);
   };
 
   return (
@@ -17,7 +16,7 @@ function ItemModal({ activeModal, onClose, card, onDelete }) {
           onClick={onClose}
         />
         <img
-          src={card.link}
+          src={card.imageUrl}
           alt={card.name || "Weather clothing item"}
           className="modal__image"
         />
