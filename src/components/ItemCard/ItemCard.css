@@ -8,7 +8,7 @@
 
 .card__name {
   position: absolute;
-  top: 15px;
+  top: 0px;
   margin: 0;
   background-color: rgba(255, 255, 255, 1);
   font-family: Cabinet Grotesk;

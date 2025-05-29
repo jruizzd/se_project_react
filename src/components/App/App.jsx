@@ -10,10 +10,10 @@ import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants";
 import { getItems, deleteItem } from "../../utils/api";
 
 function App() {
+  //creating state variables
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999, C: 999 },
@@ -24,8 +24,17 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [itemToDelete, setItemToDelete] = useState(null);
+
+  //invalid!!! Will not work
+  //activeModal = "somethine else";
+
+  //the correct way to update to change a state variable
+  //setActiveModal("something else")
+
+  // let message = "hello";
+  // message = "goodbye";
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -46,7 +55,7 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     setClothingItems((prevItems) => [
-      { name, link: imageUrl, weather },
+      { name, imageUrl, weather },
       ...prevItems,
     ]);
     closeActiveModal();

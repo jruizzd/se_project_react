@@ -1,6 +1,7 @@
 //ClothesSection Component (The Storage Area)
 // Like the main closet space where all your clothes are displayed
 import ItemCard from "../ItemCard/ItemCard";
+import "../ClothesSection/ClothesSection.css";
 
 function ClothesSection({ clothingItems, handleCardClick }) {
   return (
