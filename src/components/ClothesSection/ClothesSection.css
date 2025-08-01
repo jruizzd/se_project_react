@@ -1,3 +1,13 @@
 .clothes-section__items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.clothes-section__add {
+  margin-left: 116px;
   display: flex;
+  gap: 20px;
 }

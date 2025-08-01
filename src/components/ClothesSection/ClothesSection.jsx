@@ -6,7 +6,7 @@ import "../ClothesSection/ClothesSection.css";
 function ClothesSection({ clothingItems, handleCardClick }) {
   return (
     <div className="clothes-section">
-      <div>
+      <div className="clothes-section__add">
         <p>Your items</p>
         <button>+ Add New</button>
       </div>

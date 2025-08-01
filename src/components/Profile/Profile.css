@@ -1,0 +1,12 @@
+.profile {
+  display: flex;
+  padding: 0 40px;
+}
+
+.profile__clothing-items {
+  flex-shrink: 0;
+}
+
+.profile__sidebar {
+  flex-grow: 1;
+}

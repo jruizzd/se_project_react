@@ -1,5 +1,6 @@
 import ClothesSection from "../ClothesSection/ClothesSection";
 import SideBar from "../SideBar/SideBar";
+import "./Profile.css";
 
 // Profile Component (The Main Room)
 // This is like the entire closet room

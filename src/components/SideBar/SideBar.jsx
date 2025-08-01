@@ -2,6 +2,7 @@
 // Like a mirror area where you see your basic information
 
 import avatar from "../../assets/avatar.png";
+import "./SideBar.css";
 
 function SideBar() {
   return (
