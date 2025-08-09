@@ -44,9 +44,6 @@ WTWR (What to Wear) is a weather application that helps users choose their daily
 ![Mobile Menu Open](./assets/mobile-menu-open.png)
 ![Mobile Add Item](./assets/mobile-modal.png)
 
-## Demo Video
-
-https://1drv.ms/v/c/adcb5bf932fde79e/ET7F3W7X0TpMgVZuW_Z5cOQBBIKGNGOC-OICPsfx-IqYSA?e=ftEyig
 
 ## Installation and Setup
 
