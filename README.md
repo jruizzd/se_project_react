@@ -30,19 +30,6 @@ WTWR (What to Wear) is a weather application that helps users choose their daily
 - Modern JavaScript Modules
 - Git (for version control)
 
-## Screenshots
-
-### Desktop View
-
-![Desktop Main View](./assets/desktop-main.png)
-![Desktop Add Clothes Modal](./assets/desktop-modal-add.png)
-![Desktop Item Preview](./assets/desktop-modal-preview.png)
-
-### Mobile View
-
-![Mobile Main View](./assets/mobile-main.png)
-![Mobile Menu Open](./assets/mobile-menu-open.png)
-![Mobile Add Item](./assets/mobile-modal.png)
 
 
 ## Installation and Setup
