@@ -10,7 +10,7 @@ import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, deleteItem } from "../../utils/api";
+import { getItems, deleteItem, addItem } from "../../utils/api";
 
 function App() {
   //creating state variables
@@ -26,15 +26,6 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [itemToDelete, setItemToDelete] = useState(null);
-
-  //invalid!!! Will not work
-  //activeModal = "somethine else";
-
-  //the correct way to update to change a state variable
-  //setActiveModal("something else")
-
-  // let message = "hello";
-  // message = "goodbye";
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -53,12 +44,19 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    setClothingItems((prevItems) => [
-      { name, imageUrl, weather },
-      ...prevItems,
-    ]);
-    closeActiveModal();
+  const handleAddItemModalSubmit = async (newItem) => {
+    try {
+      // Send to server first
+      const savedItem = await addItem(newItem);
+
+      // Then update local state with the server response
+      setClothingItems([...clothingItems, savedItem]);
+
+      // Close modal
+      closeActiveModal();
+    } catch (error) {
+      console.error("Failed to add item:", error);
+    }
   };
 
   // Add it here, before handleDeleteItem
@@ -122,6 +120,7 @@ function App() {
                 <Profile
                   clothingItems={clothingItems}
                   handleCardClick={handleCardClick}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

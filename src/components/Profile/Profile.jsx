@@ -5,7 +5,7 @@ import "./Profile.css";
 // Profile Component (The Main Room)
 // This is like the entire closet room
 
-function Profile({ clothingItems, handleCardClick }) {
+function Profile({ clothingItems, handleCardClick, handleAddClick }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
@@ -15,6 +15,7 @@ function Profile({ clothingItems, handleCardClick }) {
         <ClothesSection
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}
+          handleAddClick={handleAddClick}
         />
       </section>
     </div>

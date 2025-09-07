@@ -17,7 +17,9 @@ export const addItem = ({ name, imageUrl, weather }) => {
       imageUrl,
       weather,
     }),
-  });
+  }).then((res) =>
+    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+  );
 };
 
 export const deleteItem = async (id) => {

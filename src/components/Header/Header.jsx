@@ -63,6 +63,3 @@ function Header({ handleAddClick, weatherData }) {
 }
 
 export default Header;
-
-// const button = document.querySelector(...)
-// button.addEventListener("click", ()=>{})
