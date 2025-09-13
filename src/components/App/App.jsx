@@ -1,15 +1,25 @@
+// React imports
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
+// styles
 import "./App.css";
-import { coordinates, APIkey } from "../../utils/constants";
+
+// Components
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+
+// Contexts
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+
+// Utils/API/Constants
+import { coordinates, APIkey } from "../../utils/constants";
+import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { getItems, deleteItem, addItem } from "../../utils/api";
 
 function App() {
@@ -93,7 +103,9 @@ function App() {
       .then((data) => {
         setClothingItems(data);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Failed to fetch clothing items:", err);
+      });
   }, []);
 
   return (
@@ -138,17 +150,12 @@ function App() {
           onClose={closeActiveModal}
           onDelete={openConfirmationModal}
         />
-        {activeModal === "confirm-delete" && (
-          <div className="modal modal_opened">
-            <div className="modal__content">
-              <p>Are you sure you want to delete this item?</p>
-              <div className="modal__buttons">
-                <button onClick={handleDeleteItem}>Yes</button>
-                <button onClick={closeActiveModal}>No</button>
-              </div>
-            </div>
-          </div>
-        )}
+        <ConfirmDeleteModal
+          isOpen={activeModal === "confirm-delete"}
+          onConfirm={handleDeleteItem}
+          onCloseModal={closeActiveModal}
+          itemName={itemToDelete?.name}
+        />
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

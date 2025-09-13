@@ -11,3 +11,9 @@
   display: flex;
   gap: 20px;
 }
+
+.clothes-section__add-button {
+  border: none;
+  outline: none;
+  background: none;
+}

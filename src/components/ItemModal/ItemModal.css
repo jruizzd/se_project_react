@@ -28,3 +28,7 @@
   margin: 0;
   padding: 0 20px 40px 20px;
 }
+
+.modal__delete-button {
+  color: rgba(255, 77, 0, 1);
+}
