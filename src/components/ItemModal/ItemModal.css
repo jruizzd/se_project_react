@@ -14,7 +14,7 @@
 
 .modal__footer {
   display: flex;
-  flex-direction: column;
+
   gap: 12px;
   padding-top: 20px;
 }
@@ -31,4 +31,5 @@
 
 .modal__delete-button {
   color: rgba(255, 77, 0, 1);
+  border: none;
 }
