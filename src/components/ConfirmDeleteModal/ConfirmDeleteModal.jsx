@@ -1,4 +1,5 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./ConfirmDeleteModal.css";
 
 const ConfirmDeleteModal = ({ isOpen, onConfirm, onCloseModal, itemName }) => {
   const handleConfirm = () => {
@@ -9,17 +10,23 @@ const ConfirmDeleteModal = ({ isOpen, onConfirm, onCloseModal, itemName }) => {
   return (
     <ModalWithForm
       isOpen={isOpen}
-      onCloseModal={onCloseModal}
-      title="Delete Item"
+      onClose={onCloseModal}
+      title={
+        "Are you sure you want to delete this item? This action is " +
+        'irreversible. "' +
+        itemName +
+        '"?'
+      }
     >
-      <p>Are you sure you want to delete "{itemName}"?</p>
-      <div className="modal__buttons">
-        <button onClick={handleConfirm} className="modal__confirm-btn">
-          Yes, Delete
-        </button>
-        <button onClick={onCloseModal} className="modal__cancel-btn">
-          Cancel
-        </button>
+      <div className="modal__confirm-content">
+        <div className="modal__buttons">
+          <button type="submit" className="modal__confirm-btn">
+            Yes, delete item
+          </button>
+          <button onClick={onCloseModal} className="modal__cancel-btn">
+            Cancel
+          </button>
+        </div>
       </div>
     </ModalWithForm>
   );

@@ -1,0 +1,17 @@
+.modal__buttons {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modal__confirm-btn {
+  color: rgba(255, 77, 0, 1);
+  border: none;
+  background-color: transparent;
+}
+
+.modal__cancel-btn {
+  border: none;
+  background-color: transparent;
+}
