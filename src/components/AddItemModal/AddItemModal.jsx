@@ -7,33 +7,22 @@ export default function AddItemModal({
   isOpen,
   onAddItemModalSubmit,
 }) {
-  // const [name, setName] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [weather, setWeather] = useState("");
-
-  // const handleNameChange = (e) => {
-  //   setName(e.target.value);
-  // };
-
-  // const handleImageUrlChange = (e) => {
-  //   setImageUrl(e.target.value);
-  // };
-
-  // const handleWeatherChange = (e) => {
-  //   setWeather(e.target.value);
-  // };
-
   const defaultValues = {
     name: "",
     imageUrl: "",
     weather: "",
   };
-  const { values, handleChange } = useForm(defaultValues);
+  const { values, handleChange, setValues } = useForm(defaultValues);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ values });
-    setValues({ name: "", imageUrl: "", weather: "" });
+    try {
+      await onAddItemModalSubmit(values);
+      setValues({ name: "", imageUrl: "", weather: "" });
+    } catch (err) {
+      alert("Failed to add item. Server down. Try again later.");
+      console.error("Failed to add item:", err);
+    }
   };
 
   return (
@@ -54,6 +43,7 @@ export default function AddItemModal({
           onChange={handleChange}
           value={values.name}
           required
+          name="name"
         />
       </label>
       <label htmlFor="imageUrl" className="modal__label">
@@ -66,6 +56,7 @@ export default function AddItemModal({
           onChange={handleChange}
           value={values.imageUrl}
           required
+          name="imageUrl"
         />
       </label>
       <fieldset className="modal__radio-buttons">

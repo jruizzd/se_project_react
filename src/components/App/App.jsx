@@ -55,18 +55,14 @@ function App() {
   };
 
   const handleAddItemModalSubmit = async (newItem) => {
-    try {
-      // Send to server first
-      const savedItem = await addItem(newItem);
+    // Send to server first
+    const savedItem = await addItem(newItem);
 
-      // Then update local state with the server response
-      setClothingItems([...clothingItems, savedItem]);
+    // Then update local state with the server response
+    setClothingItems([...clothingItems, savedItem]);
 
-      // Close modal
-      closeActiveModal();
-    } catch (error) {
-      console.error("Failed to add item:", error);
-    }
+    // Close modal
+    closeActiveModal();
   };
 
   // Add it here, before handleDeleteItem

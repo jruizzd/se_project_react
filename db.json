@@ -59,6 +59,18 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
       "weather": "warm",
       "_id": 18
+    },
+    {
+      "name": "sdfsdf",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
+      "weather": "warm",
+      "_id": 19
+    },
+    {
+      "name": "Joe Ruiz",
+      "imageUrl": "https://actionheat.com/?msclkid=a1ed32a3586b1ea1012d5a8a60df0e73&utm_source=bing&utm_medium=cpc&utm_campaign=TNT%20-%20Heated%20Clothing%20-%20NB&utm_term=heated%20clothing&utm_content=Heated%20Clothing%20%26%20Apperal",
+      "weather": "warm",
+      "_id": 20
     }
   ]
 }

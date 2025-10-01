@@ -19,25 +19,13 @@ export const addItem = ({ name, imageUrl, weather }) => {
       imageUrl,
       weather,
     }),
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-  );
+  }).then(checkResponse);
 };
 
-export const deleteItem = async (id) => {
-  try {
-    const response = await fetch(`${baseUrl}/items/${id}`, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to delete item");
-    }
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
+export const deleteItem = (id) => {
+  return fetch(`${baseUrl}/items/${id}`, {
+    method: "DELETE",
+  }).then(checkResponse);
 };
 
 export { getItems };
