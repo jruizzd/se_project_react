@@ -1,7 +1,19 @@
+import { useContext } from "react";
 import closeIcon from "../../assets/close-menu.svg";
 import "./ItemModal.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ activeModal, onClose, card, onDelete }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  // Defensive ownership check:
+  // - hides delete button if user is not logged in
+  // - hides delete button if card or owner data is missing
+  const isOwn =
+    Boolean(currentUser?._id) &&
+    Boolean(card?.owner) &&
+    card.owner === currentUser._id;
+
   const handleDeleteClick = () => {
     onDelete(card);
   };
@@ -15,19 +27,28 @@ function ItemModal({ activeModal, onClose, card, onDelete }) {
           className="modal__close"
           onClick={onClose}
         />
+
         <img
-          src={card.imageUrl}
-          alt={card.name || "Weather clothing item"}
+          src={card?.imageUrl}
+          alt={card?.name || "Weather clothing item"}
           className="modal__image"
         />
+
         <div className="modal__footer">
           <div className="modal__text-container">
-            <h2 className="modal__caption">{card.name}</h2>
-            <p className="modal__weather">Weather : {card.weather}</p>
+            <h2 className="modal__caption">{card?.name}</h2>
+            <p className="modal__weather">Weather: {card?.weather}</p>
           </div>
-          <button className="modal__delete-button" onClick={handleDeleteClick}>
-            Delete item
-          </button>
+
+          {isOwn && (
+            <button
+              className="modal__delete-button"
+              type="button"
+              onClick={handleDeleteClick}
+            >
+              Delete item
+            </button>
+          )}
         </div>
       </div>
     </div>

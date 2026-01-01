@@ -26,8 +26,10 @@ import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import {
   getItems,
-  deleteItem as apiDeleteItem,
   addItem as apiAddItem,
+  deleteItem as apiDeleteItem,
+  addCardLike,
+  removeCardLike,
 } from "../../utils/api";
 import { signup, signin, checkToken } from "../../utils/auth";
 
@@ -103,6 +105,31 @@ function App() {
       closeAllModals();
     } catch (err) {
       console.error("Delete failed:", err);
+    }
+  };
+
+  /* -------------------- LIKES -------------------- */
+
+  const handleCardLike = ({ _id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    if (!token) return;
+
+    if (!isLiked) {
+      addCardLike(_id, token)
+        .then((updatedCard) => {
+          setClothingItems((items) =>
+            items.map((item) => (item._id === _id ? updatedCard : item))
+          );
+        })
+        .catch(console.error);
+    } else {
+      removeCardLike(_id, token)
+        .then((updatedCard) => {
+          setClothingItems((items) =>
+            items.map((item) => (item._id === _id ? updatedCard : item))
+          );
+        })
+        .catch(console.error);
     }
   };
 
@@ -194,6 +221,7 @@ function App() {
                     weatherData={weatherData}
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -206,6 +234,8 @@ function App() {
                       clothingItems={clothingItems}
                       handleCardClick={handleCardClick}
                       handleAddClick={handleAddClick}
+                      onCardLike={handleCardLike}
+                      onLogout={handleLogout}
                     />
                   ) : (
                     <Navigate to="/" replace />
