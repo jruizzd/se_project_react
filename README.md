@@ -40,4 +40,4 @@ WTWR (What to Wear) is a weather application that helps users choose their daily
 
 ## Related Repositories
 
-- **Backend API**: [WTWR Backend Repository](https://github.com/yourusername/your-backend-repo-name)
+- **Backend API**: [WTWR Backend Repository](https://github.com/jruizzd/se_project_express)
