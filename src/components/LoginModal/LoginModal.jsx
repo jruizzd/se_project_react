@@ -1,5 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
+import "./LoginModal.css";
 
 export default function LoginModal({ isOpen, onClose, onLogin }) {
   const defaultValues = {
