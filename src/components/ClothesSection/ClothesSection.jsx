@@ -3,10 +3,15 @@ import ItemCard from "../ItemCard/ItemCard";
 import "../ClothesSection/ClothesSection.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
+function ClothesSection({
+  clothingItems,
+  handleCardClick,
+  handleAddClick,
+  onCardLike, //  Accept the likes handler
+}) {
   const currentUser = useContext(CurrentUserContext);
 
-  // Filter items to only those owned by the current user
+  // Only show items owned by current user
   const userClothingItems = clothingItems.filter(
     (item) => item.owner === currentUser?._id
   );
@@ -17,8 +22,8 @@ function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
         <p>Your items</p>
         <button
           className="clothes-section__add-button"
-          onClick={handleAddClick}
           type="button"
+          onClick={handleAddClick}
         >
           + Add New
         </button>
@@ -26,7 +31,12 @@ function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
 
       <ul className="clothes-section__items">
         {userClothingItems.map((item) => (
-          <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
+          <ItemCard
+            key={item._id}
+            item={item}
+            onCardClick={handleCardClick}
+            onCardLike={onCardLike} //  Forward the handler
+          />
         ))}
       </ul>
     </div>

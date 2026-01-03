@@ -10,49 +10,36 @@ function Profile({
   clothingItems,
   handleCardClick,
   handleAddClick,
-  onLogout, // ✅ received from App
+  onCardLike, // ✅ Likes handler from App
+  onLogout, // ✅ Logout handler from App
+  onUserUpdate, // ✅ Handler to update current user context after profile edit
 }) {
   const currentUser = useContext(CurrentUserContext);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
-  const handleEditProfileClick = () => {
-    setIsEditProfileOpen(true);
-  };
+  /* -------------------- Handlers -------------------- */
+  const handleEditProfileClick = () => setIsEditProfileOpen(true);
+  const closeAllModals = () => setIsEditProfileOpen(false);
 
-  const closeAllModals = () => {
-    setIsEditProfileOpen(false);
-  };
-
+  // Update user profile
   const handleUpdateUser = ({ name, avatar }) => {
     const token = localStorage.getItem("jwt");
 
     api
       .updateUserProfile({ name, avatar }, token)
-      .then(() => {
+      .then((updatedUser) => {
+        // ✅ Update context so UI updates immediately
+        if (onUserUpdate) onUserUpdate(updatedUser);
         closeAllModals();
       })
-      .catch((err) => {
-        console.error("Failed to update profile:", err);
-      });
+      .catch((err) => console.error("Failed to update profile:", err));
   };
 
   return (
     <div className="profile">
       {/* Sidebar */}
       <section className="profile__sidebar">
-        <SideBar
-          onEditProfile={handleEditProfileClick}
-          onLogout={onLogout} // ✅ pass to sidebar if button lives there
-        />
-
-        {/* OR sign-out button here */}
-        <button
-          type="button"
-          className="profile__signout"
-          onClick={onLogout} // ✅ TASK 5 COMPLETE
-        >
-          Sign out
-        </button>
+        <SideBar onEditProfile={handleEditProfileClick} onLogout={onLogout} />
       </section>
 
       {/* Clothing Items */}
@@ -61,6 +48,7 @@ function Profile({
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}
           handleAddClick={handleAddClick}
+          onCardLike={onCardLike} // ✅ Pass down likes handler
         />
       </section>
 
