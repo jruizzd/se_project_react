@@ -1,4 +1,4 @@
-import "./ItemCard.css";
+import "../ItemCard/ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
