@@ -45,9 +45,9 @@ function Profile({
       {/* Clothing Items */}
       <section className="profile__clothing-items">
         <ClothesSection
-          clothingItems={clothingItems}
+          sectionData={clothingItems}
           handleCardClick={handleCardClick}
-          handleAddClick={handleAddClick}
+          onAddNewClick={handleAddClick}
           onCardLike={onCardLike} // ✅ Pass down likes handler
         />
       </section>

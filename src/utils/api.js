@@ -14,6 +14,7 @@ export function getItems() {
 
 // Protected
 export const addItem = ({ name, imageUrl, weather }, token) => {
+  let imageURL = imageUrl;
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {

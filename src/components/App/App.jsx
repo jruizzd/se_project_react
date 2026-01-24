@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 // Styles
 import "./App.css";
@@ -41,7 +41,7 @@ function App() {
     condition: "",
     isDay: true,
   });
-
+  const navigate = useNavigate();
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -72,17 +72,20 @@ function App() {
   };
 
   /* -------------------- ITEM CRUD -------------------- */
-  const handleAddItemSubmit = async (newItem) => {
-    try {
-      const token = localStorage.getItem("jwt");
-      const savedItem = await apiAddItem(newItem, token);
-      setClothingItems((prev) => [...prev, savedItem]);
-      closeAllModals();
-    } catch (err) {
-      console.error("Failed to add item:", err);
-    }
-  };
+  const handleAddItemSubmit = (newItem) => {
+    const token = localStorage.getItem("jwt");
 
+    apiAddItem(newItem, token)
+      .then((updatedItems) => {
+        console.log(updatedItems);
+        setClothingItems([...clothingItems, updatedItems]);
+        closeAllModals();
+        navigate(0);
+      })
+      .catch((err) => {
+        console.error("Failed to add item:", err);
+      });
+  };
   const openDeleteConfirmation = (item) => {
     setItemToDelete(item);
     setActiveModal("confirm-delete");
@@ -93,7 +96,7 @@ function App() {
       const token = localStorage.getItem("jwt");
       await apiDeleteItem(itemToDelete._id, token);
       setClothingItems((prev) =>
-        prev.filter((item) => item._id !== itemToDelete._id)
+        prev.filter((item) => item._id !== itemToDelete._id),
       );
       closeAllModals();
     } catch (err) {
@@ -112,7 +115,7 @@ function App() {
         : await removeCardLike(_id, token);
 
       setClothingItems((items) =>
-        items.map((item) => (item._id === _id ? updatedCard : item))
+        items.map((item) => (item._id === _id ? updatedCard : item)),
       );
     } catch (err) {
       console.error("Like/unlike failed:", err);
@@ -216,14 +219,16 @@ function App() {
                 path="/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Profile
-                      clothingItems={clothingItems}
-                      handleCardClick={handleCardClick}
-                      handleAddClick={handleAddClick}
-                      onCardLike={handleCardLike}
-                      onLogout={handleLogout}
-                      onUserUpdate={handleUserUpdate}
-                    />
+                    {clothingItems.length !== 0 && (
+                      <Profile
+                        clothingItems={clothingItems}
+                        handleCardClick={handleCardClick}
+                        handleAddClick={handleAddClick}
+                        onCardLike={handleCardLike}
+                        onLogout={handleLogout}
+                        onUserUpdate={handleUserUpdate}
+                      />
+                    )}
                   </ProtectedRoute>
                 }
               />

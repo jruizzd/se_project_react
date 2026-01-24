@@ -19,7 +19,7 @@ function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
           {clothingItems.map((item) => (
             <ItemCard
               key={item._id}
-              item={item}
+              card={item}
               onCardClick={handleCardClick}
               onCardLike={onCardLike} // ✅ pass down
             />

@@ -56,7 +56,7 @@ export default function AddItemModal({
           onChange={handleChange}
           value={values.imageUrl}
           required
-          name="imageURL"
+          name="imageUrl"
         />
       </label>
       <fieldset className="modal__radio-buttons">
