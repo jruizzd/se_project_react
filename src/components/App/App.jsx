@@ -76,11 +76,10 @@ function App() {
     const token = localStorage.getItem("jwt");
 
     apiAddItem(newItem, token)
-      .then((updatedItems) => {
-        console.log(updatedItems);
-        setClothingItems([...clothingItems, updatedItems]);
-        closeAllModals();
-        navigate(0);
+      .then((res) => {
+        const createdItem = res.data; // extract the actual item
+        setClothingItems((prev) => [...prev, createdItem]); // append correctly
+        closeAllModals(); // UI updates without refresh
       })
       .catch((err) => {
         console.error("Failed to add item:", err);

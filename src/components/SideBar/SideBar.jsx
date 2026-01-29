@@ -4,8 +4,9 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./SideBar.css";
 
-const SideBar = ({ onLogOut, onEditProfile }) => {
+const SideBar = ({ onLogout, onEditProfile }) => {
   const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="sidebar">
       <div className="sidebar__user">
@@ -17,14 +18,17 @@ const SideBar = ({ onLogOut, onEditProfile }) => {
         >
           {currentUser && !currentUser.avatar && `${currentUser.name}`[0]}
         </span>
+
         <p className="sidebar__user-name">{currentUser.name}</p>
       </div>
+
       <ul className="sidebar__nav">
         <li className="sidebar__nav-item">
           <span onClick={onEditProfile}>Change profile data</span>
         </li>
+
         <li className="sidebar__nav-item">
-          <span onClick={onLogOut}>Log Out</span>
+          <span onClick={onLogout}>Log Out</span>
         </li>
       </ul>
     </div>
