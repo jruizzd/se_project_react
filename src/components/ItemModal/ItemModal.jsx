@@ -6,9 +6,6 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 function ItemModal({ activeModal, onClose, card, onDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // Defensive ownership check:
-  // - hides delete button if user is not logged in
-  // - hides delete button if card or owner data is missing
   const isOwn =
     Boolean(currentUser?._id) &&
     Boolean(card?.owner) &&

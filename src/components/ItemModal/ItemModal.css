@@ -3,6 +3,7 @@
   height: 463px;
   padding: 0;
   border-radius: 12px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -23,17 +24,35 @@
 .modal__caption {
   margin: 0;
   padding: 0 20px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 .modal__weather {
   margin: 0;
   padding: 0 20px 40px 20px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 .modal__delete-button {
   color: rgba(255, 77, 0, 1);
   border: none;
   background: none;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 .modal__text-container {

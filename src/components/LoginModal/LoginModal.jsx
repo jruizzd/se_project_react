@@ -29,7 +29,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">
+      <label className="modal__label login-label">
         Email
         <input
           type="email"
@@ -42,7 +42,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
         />
       </label>
 
-      <label className="modal__label">
+      <label className="modal__label login-label">
         Password
         <input
           type="password"
@@ -55,7 +55,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
         />
       </label>
 
-      <button type="submit" className="modal__submit">
+      <button type="submit" className="modal__submit login-button">
         Log in
       </button>
     </ModalWithForm>

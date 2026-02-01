@@ -51,6 +51,8 @@ function App() {
   const [authModal, setAuthModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const openLogin = () => setAuthModal("login");
+  const openRegister = () => setAuthModal("register");
 
   /* -------------------- UI HANDLERS -------------------- */
   const handleToggleSwitchChange = () => {
@@ -196,8 +198,8 @@ function App() {
             <Header
               weatherData={weatherData}
               handleAddClick={handleAddClick}
-              onLoginClick={() => setAuthModal("login")}
-              onRegisterClick={() => setAuthModal("register")}
+              onLoginClick={openLogin}
+              onRegisterClick={openRegister}
               onLogoutClick={handleLogout}
             />
 
@@ -261,6 +263,7 @@ function App() {
             isOpen={authModal === "register"}
             onClose={closeAllModals}
             onRegister={handleRegister}
+            onSwitchToLogin={openLogin}
           />
 
           <LoginModal

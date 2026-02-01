@@ -75,9 +75,7 @@
 
   height: 19px;
 
-  background: transparent url("../../images/like-inactive.svg") center no-repeat;
-
-  /* Later it will be defined in the modifier */
+  background: transparent url("../../assets/like-inactive.svg") center no-repeat;
 
   background-size: 21px 18px;
 
@@ -97,7 +95,7 @@
 }
 
 .card__like-button_is-active {
-  background: transparent url("../../images/like-active.svg") no-repeat;
+  background: transparent url("../../assets/like-active.svg") no-repeat;
 }
 
 .card__image:hover {

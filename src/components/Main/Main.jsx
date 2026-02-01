@@ -7,21 +7,30 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
+  const temperature = weatherData.temp[currentTemperatureUnit];
+
+  const weatherType =
+    temperature >= 75 ? "hot" : temperature >= 60 ? "warm" : "cold";
+
+  const filteredClothingItems = clothingItems.filter(
+    (item) => item.weather === weatherType,
+  );
+
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData.temp[currentTemperatureUnit]}°
-          {currentTemperatureUnit} / You may want to wear:
+          Today is {temperature}°{currentTemperatureUnit} / You may want to
+          wear:
         </p>
         <ul className="cards__list">
-          {clothingItems.map((item) => (
+          {filteredClothingItems.map((item) => (
             <ItemCard
               key={item._id}
               card={item}
               onCardClick={handleCardClick}
-              onLikeClick={onCardLike} // ✅ pass down
+              onLikeClick={onCardLike}
             />
           ))}
         </ul>

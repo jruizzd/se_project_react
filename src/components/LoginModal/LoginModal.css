@@ -1,0 +1,10 @@
+.modal__label.login-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.modal__submit.login-button {
+  cursor: pointer;
+}

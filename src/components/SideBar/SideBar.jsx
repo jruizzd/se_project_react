@@ -11,7 +11,7 @@ const SideBar = ({ onLogout, onEditProfile }) => {
     <div className="sidebar">
       <div className="sidebar__user">
         <span
-          className="navigation__user navigation__user_location_profile navigation__user_type_none"
+          className="sidebar__user-avatar navigation__user navigation__user_location_profile navigation__user_type_none"
           style={{
             backgroundImage: `url(${currentUser.avatar})`,
           }}

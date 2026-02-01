@@ -1,0 +1,11 @@
+.modal__add-button {
+  max-width: 124px;
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 1);
+}
+
+.modal__label.garment-label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -2,9 +2,8 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemCard.css";
 const ItemCard = ({ card, onCardClick, onLikeClick }) => {
-  console.log("ItemCard props:", { card, onCardClick, onLikeClick });
   const currentUser = useContext(CurrentUserContext);
-  const isLiked = card.likes.some((id) => id === currentUser._id);
+  const isLiked = card?.likes?.some((id) => id === currentUser?._id) ?? false;
   const handleClick = () => {
     onCardClick(card);
   };

@@ -18,6 +18,14 @@
 
 .modal__title {
   margin-bottom: 24px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  display: flex;
 }
 
 .modal__close {
@@ -27,6 +35,7 @@
   cursor: pointer;
   filter: grayscale(100%);
   opacity: 0.6;
+  max-width: 16px;
 }
 
 .modal__content {
@@ -61,6 +70,12 @@
 
 .modal__legend {
   margin-bottom: 12px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
 }
 
 .modal__radio-buttons {
@@ -69,6 +84,13 @@
   gap: 8px;
   border: none;
   padding: 0;
+}
+
+.modal__label_type_radio {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
 }
 
 .modal__submit {

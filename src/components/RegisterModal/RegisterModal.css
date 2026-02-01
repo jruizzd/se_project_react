@@ -1,0 +1,42 @@
+.modal__footer.signup-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  justify-content: center;
+}
+
+.modal__label.signup-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal__submit.signup-button {
+  cursor: pointer;
+}
+
+.modal__switch {
+  width: 100%;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  gap: 10px;
+}
+
+.modal__switch-link {
+  margin-left: 0px;
+  cursor: pointer;
+}

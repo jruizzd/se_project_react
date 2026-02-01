@@ -2,7 +2,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 import "./RegisterModal.css";
 
-export default function RegisterModal({ isOpen, onClose, onRegister }) {
+export default function RegisterModal({
+  isOpen,
+  onClose,
+  onRegister,
+  onSwitchToLogin,
+}) {
   const defaultValues = {
     name: "",
     avatar: "",
@@ -31,8 +36,8 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">
-        Name
+      <label className="modal__label signup-label">
+        Name*
         <input
           type="text"
           name="name"
@@ -44,8 +49,8 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
         />
       </label>
 
-      <label className="modal__label">
-        Avatar URL
+      <label className="modal__label signup-label">
+        Avatar URL*
         <input
           type="url"
           name="avatar"
@@ -57,8 +62,8 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
         />
       </label>
 
-      <label className="modal__label">
-        Email
+      <label className="modal__label signup-label">
+        Email*
         <input
           type="email"
           name="email"
@@ -70,8 +75,8 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
         />
       </label>
 
-      <label className="modal__label">
-        Password
+      <label className="modal__label signup-label">
+        Password*
         <input
           type="password"
           name="password"
@@ -82,10 +87,23 @@ export default function RegisterModal({ isOpen, onClose, onRegister }) {
           required
         />
       </label>
-
-      <button type="submit" className="modal__submit">
-        Sign up
-      </button>
+      <div className="modal__footer signup-footer">
+        <button type="submit" className="modal__submit signup-button">
+          Sign up
+        </button>
+        <p className="modal__switch">
+          or{" "}
+          <span
+            className="modal__switch-link"
+            onClick={() => {
+              onClose();
+              onSwitchToLogin();
+            }}
+          >
+            Log In
+          </span>
+        </p>
+      </div>
     </ModalWithForm>
   );
 }

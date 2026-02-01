@@ -9,9 +9,21 @@
   color: rgba(255, 77, 0, 1);
   border: none;
   background-color: transparent;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 .modal__cancel-btn {
   border: none;
   background-color: transparent;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }

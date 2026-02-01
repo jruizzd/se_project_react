@@ -14,6 +14,7 @@ const ClothesSection = ({
   return (
     <div className="clothes-section">
       <div className="clothes-section__info">
+        <p className="clothes-section__title">Your items</p>
         <button className="clothes-section__button" onClick={onAddNewClick}>
           + Add new
         </button>

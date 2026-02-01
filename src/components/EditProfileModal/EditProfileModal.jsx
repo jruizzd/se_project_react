@@ -1,59 +1,64 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useForm } from "../../hooks/useForm";
+import "./EditProfileModal.css";
 
 function EditProfileModal({ isOpen, onClose, currentUser, onUpdateUser }) {
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const { values, handleChange, setValues } = useForm({
+    name: "",
+    avatar: "",
+  });
 
-  // Pre-fill form when modal opens
   useEffect(() => {
     if (currentUser && isOpen) {
-      setName(currentUser.name);
-      setAvatar(currentUser.avatar);
+      setValues({
+        name: currentUser.name,
+        avatar: currentUser.avatar,
+      });
     }
-  }, [currentUser, isOpen]);
+  }, [currentUser, isOpen, setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    onUpdateUser({
-      name,
-      avatar,
-    });
+    onUpdateUser(values);
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>Edit Profile</h2>
+    <ModalWithForm
+      title="Change profile data"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+    >
+      <label className="modal__label">
+        Name*
+        <input
+          type="text"
+          name="name"
+          className="modal__input"
+          value={values.name}
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+      <label className="modal__label">
+        Avatar URL*
+        <input
+          type="url"
+          name="avatar"
+          className="modal__input"
+          value={values.avatar}
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-          <input
-            type="url"
-            placeholder="Avatar URL"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
-            required
-          />
-
-          <div className="modal__buttons">
-            <button type="submit">Save</button>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      {/* ✅ REQUIRED: submit button must be here */}
+      <button type="submit" className="modal__save-button">
+        Save changes
+      </button>
+    </ModalWithForm>
   );
 }
 
