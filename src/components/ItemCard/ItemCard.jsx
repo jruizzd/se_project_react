@@ -8,7 +8,7 @@ const ItemCard = ({ card, onCardClick, onLikeClick }) => {
     onCardClick(card);
   };
   const handleLikeClick = () => {
-    onLikeClick({ id: card._id, isLiked, user: currentUser });
+    onLikeClick({ _id: card._id, isLiked, user: currentUser });
   };
   return (
     <li className="card">

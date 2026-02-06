@@ -92,7 +92,8 @@ function App() {
     setActiveModal("confirm-delete");
   };
 
-  const handleDeleteItem = async () => {
+  const handleDeleteItem = async (evt) => {
+    evt.preventDefault();
     try {
       const token = localStorage.getItem("jwt");
       await apiDeleteItem(itemToDelete._id, token);
@@ -105,24 +106,25 @@ function App() {
     }
   };
 
-  /* -------------------- LIKES -------------------- */
-  const handleCardLike = async ({ _id, isLiked }) => {
+  /* -------------------- LIKES --------------------handleCardLike */
+  const handleCardLike = ({ _id, isLiked }) => {
     const token = localStorage.getItem("jwt");
-    if (!token) return;
-
-    try {
-      const updatedCard = !isLiked
-        ? await addCardLike(_id, token)
-        : await removeCardLike(_id, token);
-
-      setClothingItems((items) =>
-        items.map((item) => (item._id === _id ? updatedCard : item)),
-      );
-    } catch (err) {
-      console.error("Like/unlike failed:", err);
-    }
+    return isLiked
+      ? removeCardLike(_id, token)
+          .then((newCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? newCard : item)),
+            );
+          })
+          .catch((err) => console.log(err))
+      : addCardLike(_id, token)
+          .then((newCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? newCard : item)),
+            );
+          })
+          .catch((err) => console.log(err));
   };
-
   /* -------------------- AUTH -------------------- */
   const handleRegister = async (userData) => {
     try {
