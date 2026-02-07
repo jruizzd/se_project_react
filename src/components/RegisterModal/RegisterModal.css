@@ -16,7 +16,7 @@
   flex-direction: column;
   gap: 8px;
 }
-.modal__submit.signup-button {
+.modal__submit.signup-button:not(:disabled) {
   cursor: pointer;
 }
 
@@ -39,4 +39,20 @@
 .modal__switch-link {
   margin-left: 0px;
   cursor: pointer;
+}
+
+.signup-button {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button_active {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.signup-button:disabled {
+  opacity: 0.6;
 }

@@ -10,8 +10,13 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
 
   const { values, handleChange, setValues } = useForm(defaultValues);
 
+  // Form is valid if both fields are non-empty
+  const isFormValid = values.email && values.password;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isFormValid) return;
+
     try {
       await onLogin(values);
       setValues(defaultValues);
@@ -55,7 +60,13 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
         />
       </label>
 
-      <button type="submit" className="modal__submit login-button">
+      <button
+        type="submit"
+        className={`modal__submit login-button ${
+          isFormValid ? "login-button_active" : ""
+        }`}
+        disabled={!isFormValid}
+      >
         Log in
       </button>
     </ModalWithForm>

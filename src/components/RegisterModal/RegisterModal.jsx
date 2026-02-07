@@ -17,8 +17,14 @@ export default function RegisterModal({
 
   const { values, handleChange, setValues } = useForm(defaultValues);
 
+  // Form is valid if ALL fields are non-empty
+  const isFormValid =
+    values.name && values.avatar && values.email && values.password;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isFormValid) return;
+
     try {
       await onRegister(values);
       setValues(defaultValues);
@@ -87,10 +93,18 @@ export default function RegisterModal({
           required
         />
       </label>
+
       <div className="modal__footer signup-footer">
-        <button type="submit" className="modal__submit signup-button">
+        <button
+          type="submit"
+          className={`modal__submit signup-button ${
+            isFormValid ? "signup-button_active" : ""
+          }`}
+          disabled={!isFormValid}
+        >
           Sign up
         </button>
+
         <p className="modal__switch">
           or{" "}
           <span

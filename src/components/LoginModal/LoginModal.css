@@ -5,6 +5,22 @@
   margin-bottom: 12px;
 }
 
-.modal__submit.login-button {
+.login-button {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.login-button_active {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+}
+
+.login-button:not(:disabled) {
   cursor: pointer;
 }
