@@ -2,7 +2,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 import "./LoginModal.css";
 
-export default function LoginModal({ isOpen, onClose, onLogin }) {
+export default function LoginModal({
+  isOpen,
+  onClose,
+  onLogin,
+  onSwitchToRegister,
+}) {
   const defaultValues = {
     email: "",
     password: "",
@@ -60,15 +65,30 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
         />
       </label>
 
-      <button
-        type="submit"
-        className={`modal__submit login-button ${
-          isFormValid ? "login-button_active" : ""
-        }`}
-        disabled={!isFormValid}
-      >
-        Log in
-      </button>
+      <div className="modal__footer login-footer">
+        <button
+          type="submit"
+          className={`modal__submit login-button ${
+            isFormValid ? "login-button_active" : ""
+          }`}
+          disabled={!isFormValid}
+        >
+          Log in
+        </button>
+
+        <p className="login__switch">
+          or{" "}
+          <span
+            className="login__switch-link"
+            onClick={() => {
+              onClose();
+              onSwitchToRegister();
+            }}
+          >
+            Sign Up
+          </span>
+        </p>
+      </div>
     </ModalWithForm>
   );
 }

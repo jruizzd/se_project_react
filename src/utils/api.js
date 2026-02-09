@@ -1,20 +1,19 @@
 const baseUrl = "http://localhost:3001";
 
 // ------------------ HELPER ------------------
-export function checkResponse(res) {
+export const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-}
+};
 
 // ------------------ ITEM ENDPOINTS ------------------
 
 // Public
-export function getItems() {
+export const getItems = () => {
   return fetch(`${baseUrl}/items`).then(checkResponse);
-}
+};
 
 // Protected
 export const addItem = ({ name, imageUrl, weather }, token) => {
-  let imageURL = imageUrl;
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {

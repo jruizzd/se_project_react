@@ -9,11 +9,8 @@ function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
 
   const temperature = weatherData.temp[currentTemperatureUnit];
 
-  const weatherType =
-    temperature >= 75 ? "hot" : temperature >= 60 ? "warm" : "cold";
-
   const filteredClothingItems = clothingItems.filter(
-    (item) => item.weather === weatherType,
+    (item) => item.weather === weatherData.type,
   );
 
   return (

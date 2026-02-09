@@ -51,8 +51,8 @@
 .modal__form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   width: 100%;
+  gap: 24px;
 }
 
 .modal__input {

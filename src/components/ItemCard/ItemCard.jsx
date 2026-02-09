@@ -20,12 +20,14 @@ const ItemCard = ({ card, onCardClick, onLikeClick }) => {
       />
       <div className="card__header">
         <p className="card__title">{card.name}</p>
-        <button
-          className={`card__like-button ${
-            isLiked ? "card__like-button_is-active" : ""
-          }`}
-          onClick={handleLikeClick}
-        ></button>
+        {currentUser && (
+          <button
+            className={`card__like-button ${
+              isLiked ? "card__like-button_is-active" : ""
+            }`}
+            onClick={handleLikeClick}
+          />
+        )}
       </div>
     </li>
   );

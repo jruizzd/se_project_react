@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { Routes, Route } from "react-router-dom";
 
 // Styles
 import "./App.css";
@@ -41,7 +41,7 @@ function App() {
     condition: "",
     isDay: true,
   });
-  const navigate = useNavigate();
+
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -51,8 +51,21 @@ function App() {
   const [authModal, setAuthModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
+
+  /* -------------------- MODAL HELPERS -------------------- */
   const openLogin = () => setAuthModal("login");
   const openRegister = () => setAuthModal("register");
+
+  const handleSwitchToRegister = () => {
+    setAuthModal("register");
+  };
+
+  const closeAllModals = useCallback(() => {
+    setActiveModal("");
+    setAuthModal("");
+    setSelectedCard(null);
+    setItemToDelete(null);
+  }, []);
 
   /* -------------------- UI HANDLERS -------------------- */
   const handleToggleSwitchChange = () => {
@@ -66,107 +79,116 @@ function App() {
 
   const handleAddClick = () => setActiveModal("add-garment");
 
-  const closeAllModals = () => {
-    setActiveModal("");
-    setAuthModal("");
-    setSelectedCard(null);
-    setItemToDelete(null);
-  };
-
   /* -------------------- ITEM CRUD -------------------- */
   const handleAddItemSubmit = (newItem) => {
     const token = localStorage.getItem("jwt");
 
-    apiAddItem(newItem, token)
+    return apiAddItem(newItem, token)
       .then((res) => {
-        const createdItem = res.data; // extract the actual item
-        setClothingItems((prev) => [...prev, createdItem]); // append correctly
-        closeAllModals(); // UI updates without refresh
+        setClothingItems((prev) => [...prev, res.data]);
+        closeAllModals();
+        return res;
       })
       .catch((err) => {
-        console.error("Failed to add item:", err);
+        console.error("Add item failed:", err);
+        throw err;
       });
   };
+
   const openDeleteConfirmation = (item) => {
     setItemToDelete(item);
     setActiveModal("confirm-delete");
   };
 
-  const handleDeleteItem = async (evt) => {
-    evt.preventDefault();
-    try {
-      const token = localStorage.getItem("jwt");
-      await apiDeleteItem(itemToDelete._id, token);
-      setClothingItems((prev) =>
-        prev.filter((item) => item._id !== itemToDelete._id),
-      );
-      closeAllModals();
-    } catch (err) {
-      console.error("Delete failed:", err);
-    }
+  const handleDeleteItem = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("jwt");
+
+    return apiDeleteItem(itemToDelete._id, token)
+      .then(() => {
+        setClothingItems((prev) =>
+          prev.filter((item) => item._id !== itemToDelete._id),
+        );
+        closeAllModals();
+      })
+      .catch((err) => {
+        console.error("Delete failed:", err);
+        throw err;
+      });
   };
 
-  /* -------------------- LIKES --------------------handleCardLike */
+  /* -------------------- LIKES -------------------- */
   const handleCardLike = ({ _id, isLiked }) => {
     const token = localStorage.getItem("jwt");
-    return isLiked
+
+    const request = isLiked
       ? removeCardLike(_id, token)
-          .then((newCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? newCard : item)),
-            );
-          })
-          .catch((err) => console.log(err))
-      : addCardLike(_id, token)
-          .then((newCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? newCard : item)),
-            );
-          })
-          .catch((err) => console.log(err));
+      : addCardLike(_id, token);
+
+    return request
+      .then((newCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === _id ? newCard.data : item)),
+        );
+        return newCard;
+      })
+      .catch((err) => {
+        console.error("Like error:", err);
+        throw err;
+      });
   };
+
   /* -------------------- AUTH -------------------- */
-  const handleRegister = async (userData) => {
-    try {
-      await signup(userData);
-      await handleLogin({ email: userData.email, password: userData.password });
-    } catch (err) {
-      console.error("Registration error:", err);
-    }
+  const handleRegister = (userData) => {
+    return signup(userData)
+      .then(() =>
+        handleLogin({
+          email: userData.email,
+          password: userData.password,
+        }),
+      )
+      .catch((err) => {
+        console.error("Registration error:", err);
+        throw err;
+      });
   };
 
-  const handleLogin = async (credentials) => {
-    try {
-      const data = await signin(credentials);
-      if (data.token) {
+  const handleLogin = (credentials) => {
+    return signin(credentials)
+      .then((data) => {
+        if (!data.token) {
+          throw new Error("No token returned");
+        }
         localStorage.setItem("jwt", data.token);
-        await fetchUser(data.token);
+        return fetchUser(data.token);
+      })
+      .then(() => {
         closeAllModals();
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-    }
+      })
+      .catch((err) => {
+        console.error("Login error:", err);
+        throw err;
+      });
   };
 
-  const fetchUser = async (token) => {
-    try {
-      const userData = await checkToken(token);
-      setCurrentUser(userData);
-      setIsLoggedIn(true);
-    } catch (err) {
-      console.error("Token invalid:", err);
-      handleLogout();
-    }
+  const fetchUser = (token) => {
+    return checkToken(token)
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
+        return userData;
+      })
+      .catch((err) => {
+        console.error("Token invalid:", err);
+        handleLogout();
+        throw err;
+      });
   };
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setCurrentUser(null);
     setIsLoggedIn(false);
-  };
-
-  const handleUserUpdate = (updatedUser) => {
-    setCurrentUser(updatedUser);
   };
 
   /* -------------------- EFFECTS -------------------- */
@@ -178,9 +200,7 @@ function App() {
 
   useEffect(() => {
     getItems()
-      .then((res) => {
-        setClothingItems(res.data);
-      })
+      .then((res) => setClothingItems(res.data))
       .catch(console.error);
   }, []);
 
@@ -188,6 +208,17 @@ function App() {
     const token = localStorage.getItem("jwt");
     if (token) fetchUser(token);
   }, []);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllModals();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, [closeAllModals]);
 
   /* -------------------- RENDER -------------------- */
   return (
@@ -222,16 +253,13 @@ function App() {
                 path="/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    {clothingItems.length !== 0 && (
-                      <Profile
-                        clothingItems={clothingItems}
-                        handleCardClick={handleCardClick}
-                        handleAddClick={handleAddClick}
-                        onCardLike={handleCardLike}
-                        onLogout={handleLogout}
-                        onUserUpdate={handleUserUpdate}
-                      />
-                    )}
+                    <Profile
+                      clothingItems={clothingItems}
+                      handleCardClick={handleCardClick}
+                      handleAddClick={handleAddClick}
+                      onCardLike={handleCardLike}
+                      onLogout={handleLogout}
+                    />
                   </ProtectedRoute>
                 }
               />
@@ -272,6 +300,7 @@ function App() {
             isOpen={authModal === "login"}
             onClose={closeAllModals}
             onLogin={handleLogin}
+            onSwitchToRegister={handleSwitchToRegister}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>
