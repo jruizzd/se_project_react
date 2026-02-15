@@ -20,7 +20,7 @@ const ClothesSection = ({
         </button>
       </div>
       <ul className="clothes-section__list">
-        {sectionData.length &&
+        {sectionData.length > 0 &&
           sectionData.map(
             (card) =>
               currentUser &&
