@@ -1,5 +1,5 @@
 // Weather images for different conditions (day/night)
-export const weatherOptions = [
+const weatherOptions = [
   {
     day: true,
     condition: "clear",
@@ -30,6 +30,7 @@ export const weatherOptions = [
     condition: "storm",
     url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
+
   {
     day: false,
     condition: "clear",
@@ -62,17 +63,21 @@ export const weatherOptions = [
   },
 ];
 
-// Default weather images if a condition is not matched
-export const defaultWeatherOptions = {
+const defaultWeatherOptions = {
   day: { url: new URL("../assets/day/default.png", import.meta.url).href },
   night: { url: new URL("../assets/night/default.png", import.meta.url).href },
 };
 
-// Coordinates for the weather API
-export const coordinates = {
+const coordinates = {
   latitude: 27.421388,
   longitude: -97.851978,
 };
 
-// API key for weather requests (camelCase)
-export const apiKey = "428be2bb69eeba8a3bc381598577df04";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.flazzard.com"
+    : "http://localhost:3001";
+
+const apiKey = "428be2bb69eeba8a3bc381598577df04";
+
+export { weatherOptions, defaultWeatherOptions, coordinates, baseUrl, apiKey };

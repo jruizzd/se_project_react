@@ -3,11 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://jdserver.flazzard.com",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && scp -r ./dist/* jdr76015@jdserver.flazzard.com:/home/jdr76015/frontend"
   },
   "dependencies": {
     "react": "^18.3.1",
