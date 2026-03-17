@@ -60,12 +60,12 @@ function App() {
     setAuthModal("register");
   };
 
-  const closeAllModals = useCallback(() => {
+  const closeAllModals = () => {
     setActiveModal("");
     setAuthModal("");
     setSelectedCard(null);
     setItemToDelete(null);
-  }, []);
+  };
 
   /* -------------------- UI HANDLERS -------------------- */
   const handleToggleSwitchChange = () => {

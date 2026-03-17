@@ -23,7 +23,11 @@ const ConfirmDeleteModal = ({ isOpen, onConfirm, onCloseModal, itemName }) => {
           <button onClick={onConfirm} className="modal__confirm-btn">
             Yes, delete item
           </button>
-          <button onClick={onCloseModal} className="modal__cancel-btn">
+          <button
+            type="button"
+            onClick={onCloseModal}
+            className="modal__cancel-btn"
+          >
             Cancel
           </button>
         </div>
